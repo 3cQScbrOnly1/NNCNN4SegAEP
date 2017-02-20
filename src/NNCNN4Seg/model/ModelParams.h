@@ -27,7 +27,7 @@ public:
 		opts.windowOutput = opts.wordDim * opts.wordWindow;
 		opts.labelSize = labelAlpha.size();
 		hidden_linear.initial(opts.hiddenSize, opts.windowOutput, true, mem);
-		opts.inputSize = opts.hiddenSize * 2;
+		opts.inputSize = opts.hiddenSize * 3;
 		olayer_linear.initial(opts.labelSize, opts.inputSize, false, mem);
 		return true;
 	}

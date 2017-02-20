@@ -60,7 +60,7 @@ public:
 		_avg_pooling.init(opts.hiddenSize, -1, mem);
 		_max_pooling.init(opts.hiddenSize, -1, mem);
 		_min_pooling.init(opts.hiddenSize, -1, mem);
-		_concat.init(opts.hiddenSize * 2, -1, mem);
+		_concat.init(opts.hiddenSize * 3, -1, mem);
 		_output.setParam(&model.olayer_linear);
 		_output.init(opts.labelSize, -1, mem);
 	}
@@ -87,7 +87,8 @@ public:
 		}
 		_avg_pooling.forward(this, getPNodes(_hidden, words_num));
 		_max_pooling.forward(this, getPNodes(_hidden, words_num));
-		_concat.forward(this, &_avg_pooling, &_max_pooling);
+		_min_pooling.forward(this, getPNodes(_hidden, words_num));
+		_concat.forward(this, &_avg_pooling, &_max_pooling, &_min_pooling);
 		_output.forward(this, &_concat);
 	}
 };
