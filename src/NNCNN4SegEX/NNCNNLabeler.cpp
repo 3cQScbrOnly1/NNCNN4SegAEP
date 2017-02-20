@@ -34,6 +34,7 @@ int Classifier::createAlphabet(const vector<Instance>& vecInsts) {
 		{
 			string curword = normalize_to_lowerwithdigit(words[i]);
 			m_word_stats[curword]++;
+			m_ext_word_stats[curword]++;
 		}
 
 		if (m_options.maxInstance > 0 && numInstance == m_options.maxInstance)
@@ -65,10 +66,8 @@ void Classifier::getGoldAnswer(vector<Instance>& vecInsts){
 	}
 }
 
-int Classifier::addTestAlpha(const vector<Instance>& vecInsts) {
+int Classifier::addExtWordAlpha(const vector<Instance>& vecInsts) {
 	cout << "Adding word Alphabet..." << endl;
-
-
 	for (int numInstance = 0; numInstance < vecInsts.size(); numInstance++) {
 		const Instance *pInstance = &vecInsts[numInstance];
 
@@ -76,13 +75,12 @@ int Classifier::addTestAlpha(const vector<Instance>& vecInsts) {
 		int curInstSize = words.size();
 		for (int i = 0; i < curInstSize; ++i) {
 			string curword = normalize_to_lowerwithdigit(words[i]);
-			if (!m_options.wordEmbFineTune)m_word_stats[curword]++;
+			if (!m_options.wordEmbFineTune)m_ext_word_stats[curword]++;
 		}
 
 		if (m_options.maxInstance > 0 && numInstance == m_options.maxInstance)
 			break;
 	}
-
 	return 0;
 }
 
@@ -118,23 +116,26 @@ void Classifier::train(const string& trainFile, const string& devFile, const str
 	//std::cout << "Dev example number: " << trainInsts.size() << std::endl;
 	//std::cout << "Test example number: " << trainInsts.size() << std::endl;
 
-	//addTestAlpha(devInsts);
-	//addTestAlpha(testInsts);
+	addExtWordAlpha(devInsts);
+	addExtWordAlpha(testInsts);
 	for (int idx = 0; idx < otherInsts.size(); idx++) {
-		addTestAlpha(otherInsts[idx]);
+		addExtWordAlpha(otherInsts[idx]);
 	}
 
 	vector<int> otherInstNums(otherInsts.size());
 	vector<vector<Instance> > otherInstances(otherInsts.size());
 
 	m_word_stats[unknownkey] = m_options.wordCutOff + 1;
+	m_ext_word_stats[unknownkey] = m_options.wordCutOff + 1;
 	m_driver._modelparams.wordAlpha.initial(m_word_stats, m_options.wordCutOff);
-	if (m_options.wordFile != "") {
-		m_driver._modelparams.words.initial(&m_driver._modelparams.wordAlpha, m_options.wordFile, m_options.wordEmbFineTune);
-	}
-	else{
-		m_driver._modelparams.words.initial(&m_driver._modelparams.wordAlpha, m_options.wordEmbSize, m_options.wordEmbFineTune);
-	}
+	m_driver._modelparams.extWordAlpha.initial(m_ext_word_stats, m_options.wordCutOff);
+	//if (m_options.wordFile != "") {
+		//m_driver._modelparams.words.initial(&m_driver._modelparams.wordAlpha, m_options.wordFile, m_options.wordEmbFineTune);
+	//}
+	//else{
+	m_driver._modelparams.extWords.initial(&m_driver._modelparams.extWordAlpha, m_options.wordFile, false);
+	m_driver._modelparams.words.initial(&m_driver._modelparams.wordAlpha, m_options.wordEmbSize, true);
+	//}
 
 	m_driver._hyperparams.setRequared(m_options);
 	m_driver.initial();
