@@ -15,6 +15,7 @@ class Options {
 public:
 
   int wordCutOff;
+	int attCutOff;
   int featCutOff;
   int charCutOff;
   dtype initRange;
@@ -40,6 +41,9 @@ public:
   int typeEmbSize;
   bool typeEmbFineTune;
 
+	int attEmbSize;
+	bool attEmbFineTune;
+
   int maxsegLen;
 
   int verboseIter;
@@ -61,6 +65,7 @@ public:
 
   Options() {
     wordCutOff = 0;
+		attCutOff = 0;
     featCutOff = 0;
     charCutOff = 0;
     initRange = 0.01;
@@ -84,6 +89,9 @@ public:
 
 	typeEmbSize = 50;
 	typeEmbFineTune = true;
+
+	attEmbSize = 50;
+	attEmbFineTune = true;
 
     verboseIter = 100;
     saveIntermediate = true;
@@ -114,6 +122,8 @@ public:
       string2pair(vecOption[i], pr, '=');
       if (pr.first == "wordCutOff")
         wordCutOff = atoi(pr.second.c_str());
+			if (pr.first == "attCutOff")
+				attCutOff == atoi(pr.second.c_str());
       if (pr.first == "featCutOff")
         featCutOff = atoi(pr.second.c_str());
       if (pr.first == "charCutOff")
@@ -157,6 +167,11 @@ public:
 		  typeEmbSize = atoi(pr.second.c_str());
 	  if (pr.first == "typeEmbFineTune")
 		  typeEmbFineTune = (pr.second == "true") ? true : false;
+
+	  if (pr.first == "attEmbSize")
+		  attEmbSize = atoi(pr.second.c_str());
+	  if (pr.first == "attEmbFineTune")
+		  attEmbFineTune = (pr.second == "true") ? true : false;
         
       if (pr.first == "verboseIter")
         verboseIter = atoi(pr.second.c_str());
@@ -194,6 +209,7 @@ public:
 
   void showOptions() {
     std::cout << "wordCutOff = " << wordCutOff << std::endl;
+    std::cout << "attCutOff = " << attCutOff << std::endl;
     std::cout << "featCutOff = " << featCutOff << std::endl;
     std::cout << "charCutOff = " << charCutOff << std::endl;
     std::cout << "initRange = " << initRange << std::endl;
@@ -216,6 +232,9 @@ public:
     std::cout << "charhiddenSize = " << charhiddenSize << std::endl;
 	std::cout << "typeEmbSize = " << typeEmbSize << std::endl;
 	std::cout << "typeEmbFineTune = " << typeEmbFineTune << std::endl;
+	std::cout << "attEmbSize = " << attEmbSize << std::endl;
+	std::cout << "attEmbFineTune = " << attEmbFineTune << std::endl;
+
 
     std::cout << "verboseIter = " << verboseIter << std::endl;
     std::cout << "saveItermediate = " << saveIntermediate << std::endl;

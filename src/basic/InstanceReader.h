@@ -49,6 +49,13 @@ public:
 				m_instance.m_polarity = str_info;
 		}
 
+		if (m_instance.m_attributes.size() == 0)
+			m_instance.m_attributes.push_back("[a]-null-");
+		if (m_instance.m_evalutions.size() == 0)
+			m_instance.m_evalutions.push_back("[e]-null-");
+		if (m_instance.m_polarity == "")
+			m_instance.m_evalutions.push_back("[p]-unknow-");
+
 		return &m_instance;
 	}
 };
