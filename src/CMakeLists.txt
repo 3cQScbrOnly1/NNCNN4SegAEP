@@ -4,5 +4,5 @@ include_directories(
 )
 
 
-add_subdirectory(NNCNN4Seg)
+add_subdirectory(NNCNN4SegTanhMaxPool)
 add_subdirectory(NNCNN4SegA)
