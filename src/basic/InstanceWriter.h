@@ -34,7 +34,6 @@ public:
 			m_outf << evals[idx] << " ";
 		}
 		m_outf << pInstance->m_polarity << endl;
-	  m_outf << endl;
 	  return 0;
 	}
 };
