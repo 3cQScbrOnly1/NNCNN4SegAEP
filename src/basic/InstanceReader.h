@@ -3,6 +3,7 @@
 
 #include "Reader.h"
 #include "N3L.h"
+#include "Utf.h"
 #include <sstream>
 
 using namespace std;
@@ -43,19 +44,16 @@ public:
 			const string str_info = vecInfo[idx];
 			if (str_info.find("[a]") != -1)
 				m_instance.m_attributes.push_back(str_info);
-			if (str_info.find("[e]") != -1)
-				m_instance.m_evalutions.push_back(str_info);
+			if (str_info.find("[e]") != -1) {
+				string sub_str_info = str_info.substr(3, -1);
+				m_instance.m_evalutions.push_back(sub_str_info);
+				vector<string> eval_chars;
+				getCharactersFromUTF8String(sub_str_info, eval_chars);
+				m_instance.m_eval_chars.push_back(eval_chars);
+			}
 			if (str_info.find("[p]") != -1)
 				m_instance.m_polarity = str_info;
 		}
-
-		if (m_instance.m_attributes.size() == 0)
-			m_instance.m_attributes.push_back("[a]-null-");
-		if (m_instance.m_evalutions.size() == 0)
-			m_instance.m_evalutions.push_back("[e]-null-");
-		if (m_instance.m_polarity == "")
-			m_instance.m_evalutions.push_back("[p]-unknow-");
-
 		return &m_instance;
 	}
 };

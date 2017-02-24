@@ -21,6 +21,7 @@ public:
 
 
 	vector<LookupNode> _att_inputs;
+	Node _att_bucket;
 	AvgPoolNode _att_avg_pooling;
 	MaxPoolNode _att_max_pooling;
 	MinPoolNode _att_min_pooling;
@@ -75,6 +76,8 @@ public:
 			_att_inputs[idx].setParam(&model.atts);
 			_att_inputs[idx].init(opts.attDim, opts.dropProb, mem);
 		}
+		_att_bucket.set_bucket();
+		_att_bucket.init(opts.attDim, -1, mem);
 		_att_avg_pooling.init(opts.attDim, -1, mem);
 		_att_max_pooling.init(opts.attDim, -1, mem);
 		_att_min_pooling.init(opts.attDim, -1, mem);
@@ -115,11 +118,17 @@ public:
 		for (int i = 0; i < att_num; i++) {
 			_att_inputs[i].forward(this, inst.m_attributes[i]);
 		}
-		_att_avg_pooling.forward(this, getPNodes(_att_inputs, att_num));
-		_att_max_pooling.forward(this, getPNodes(_att_inputs, att_num));
-		_att_min_pooling.forward(this, getPNodes(_att_inputs, att_num));
-		_att_pooling_concat.forward(this, &_att_avg_pooling, &_att_max_pooling, &_att_min_pooling);
-		
+
+
+		if (att_num == 0)
+			_att_pooling_concat.forward(this, &_att_bucket, &_att_bucket, &_att_bucket);
+		else {
+			_att_avg_pooling.forward(this, getPNodes(_att_inputs, att_num));
+			_att_max_pooling.forward(this, getPNodes(_att_inputs, att_num));
+			_att_min_pooling.forward(this, getPNodes(_att_inputs, att_num));
+			_att_pooling_concat.forward(this, &_att_avg_pooling, &_att_max_pooling, &_att_min_pooling);
+		}
+
 		_concat_seg_att.forward(this, &_word_max_pooling, &_att_pooling_concat);
 
 		_output.forward(this, &_concat_seg_att);

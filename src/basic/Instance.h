@@ -12,6 +12,7 @@ public:
 		m_segs.clear();
 		m_attributes.clear();
 		m_evalutions.clear();
+		m_eval_chars.clear();
 		m_polarity.clear();
 		m_label.clear();
 	}
@@ -28,6 +29,7 @@ public:
 		m_segs = anInstance.m_segs;
 		m_attributes = anInstance.m_attributes;
 		m_evalutions = anInstance.m_evalutions;
+		m_eval_chars = anInstance.m_eval_chars;
 		m_polarity = anInstance.m_polarity;
 		m_label = anInstance.m_label;
 	}
@@ -44,6 +46,7 @@ public:
 	vector<string> m_segs;
 	vector<string> m_attributes;
 	vector<string> m_evalutions;
+	vector<vector<string> > m_eval_chars;
 	string m_polarity;
 	string m_label;
 

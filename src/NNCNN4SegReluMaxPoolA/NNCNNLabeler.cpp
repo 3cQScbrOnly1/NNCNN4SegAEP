@@ -74,24 +74,25 @@ void Classifier::getGoldAnswer(vector<Instance>& vecInsts){
 	}
 }
 
-int Classifier::addTestAlpha(const vector<Instance>& vecInsts) {
-	cout << "Adding word Alphabet..." << endl;
+int Classifier::addTestAttAlpha(const vector<Instance>& vecInsts) {
+	cout << "Adding Test Att Alphabet..." << endl;
 
 
 	for (int numInstance = 0; numInstance < vecInsts.size(); numInstance++) {
 		const Instance *pInstance = &vecInsts[numInstance];
 
-		const vector<string> &words = pInstance->m_segs;
-		int curInstSize = words.size();
-		for (int i = 0; i < curInstSize; ++i) {
-			string curword = normalize_to_lowerwithdigit(words[i]);
-			if (!m_options.wordEmbFineTune)m_word_stats[curword]++;
+		const vector<string> &atts = pInstance->m_attributes;
+		int att_num = atts.size();
+		for (int i = 0; i < att_num; i++) {
+			string curatt = normalize_to_lowerwithdigit(atts[i]);
+			m_att_stats[curatt]++;
 		}
 
 		if (m_options.maxInstance > 0 && numInstance == m_options.maxInstance)
 			break;
 	}
 
+	cout << "Att num:" << m_att_stats.size() << endl;
 	return 0;
 }
 
@@ -127,11 +128,11 @@ void Classifier::train(const string& trainFile, const string& devFile, const str
 	//std::cout << "Dev example number: " << trainInsts.size() << std::endl;
 	//std::cout << "Test example number: " << trainInsts.size() << std::endl;
 
-	//addTestAlpha(devInsts);
-	//addTestAlpha(testInsts);
-	for (int idx = 0; idx < otherInsts.size(); idx++) {
-		addTestAlpha(otherInsts[idx]);
-	}
+	addTestAttAlpha(devInsts);
+	addTestAttAlpha(testInsts);
+	//for (int idx = 0; idx < otherInsts.size(); idx++) {
+		//addTestAlpha(otherInsts[idx]);
+	//}
 
 	vector<int> otherInstNums(otherInsts.size());
 	vector<vector<Instance> > otherInstances(otherInsts.size());
