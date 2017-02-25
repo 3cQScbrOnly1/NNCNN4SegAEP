@@ -43,7 +43,9 @@ public:
 	Node _eval_concat_bucket;
 	ConcatNode _eval_pooling_concat;
 
-	TriNode _concat_seg_att_eval;
+	LookupNode _polar_input;
+
+	FourNode _concat_seg_att_eval_polar;
 
 	LinearNode _output;
 public:
@@ -145,8 +147,11 @@ public:
 
 		_eval_pooling_concat.init(opts.evalCharHiddenSize * 3 * 3, -1, mem);
 
-		_concat_seg_att_eval.setParam(&model.seg_att_eval_concat);
-		_concat_seg_att_eval.init(opts.concatHiddenSize, opts.dropProb, mem);
+		_polar_input.setParam(&model.polarity);
+		_polar_input.init(opts.polarityDim, opts.dropProb, mem);
+
+		_concat_seg_att_eval_polar.setParam(&model.seg_att_eval_polar_concat);
+		_concat_seg_att_eval_polar.init(opts.concatHiddenSize, opts.dropProb, mem);
 
 		_output.setParam(&model.olayer_linear);
 		_output.init(opts.labelSize, -1, mem);
@@ -218,9 +223,11 @@ public:
 			_eval_pooling_concat.forward(this, &_eval_concat_max_pooling, &_eval_concat_min_pooling, &_eval_concat_avg_pooling);
 		}
 
-		_concat_seg_att_eval.forward(this, &_word_max_pooling, &_att_pooling_concat, &_eval_pooling_concat);
+		_polar_input.forward(this, inst.m_polarity);
 
-		_output.forward(this, &_concat_seg_att_eval);
+		_concat_seg_att_eval_polar.forward(this, &_word_max_pooling, &_att_pooling_concat, &_eval_pooling_concat, &_polar_input);
+
+		_output.forward(this, &_concat_seg_att_eval_polar);
 	}
 };
 

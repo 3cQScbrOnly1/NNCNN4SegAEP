@@ -15,15 +15,19 @@ struct HyperParams{
 
 	int wordHiddenSize;
 	int concatHiddenSize;
+	int evalCharHiddenSize;
 	int wordContext;
+	int evalCharContext;
 	int wordWindow;
-	int windowOutput;
+	int evalCharWindow;
 	dtype dropProb;
 
 
 	//auto generated
 	int wordDim;
 	int attDim;
+	int evalCharDim;
+	int polarityDim;
 	int inputSize;
 	int labelSize;
 
@@ -39,7 +43,9 @@ public:
 		adaEps = opt.adaEps;
 		wordHiddenSize = opt.wordHiddenSize;
 		concatHiddenSize = opt.concatHiddenSize;
+		evalCharHiddenSize = opt.evalCharHiddenSize;
 		wordContext = opt.wordcontext;
+		evalCharContext = opt.evalCharContext;
 		dropProb = opt.dropProb;
 
 		bAssigned = true;

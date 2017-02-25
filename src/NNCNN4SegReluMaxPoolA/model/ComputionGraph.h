@@ -84,7 +84,7 @@ public:
 		_att_pooling_concat.init(opts.attDim * 3, -1, mem);
 
 		_concat_seg_att.setParam(&model.seg_att_concat);
-		_concat_seg_att.init(opts.wordHiddenSize, opts.dropProb, mem);
+		_concat_seg_att.init(opts.concatHiddenSize, opts.dropProb, mem);
 
 		_output.setParam(&model.olayer_linear);
 		_output.init(opts.labelSize, -1, mem);
