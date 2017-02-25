@@ -36,7 +36,7 @@ public:
 
 	int createAlphabet(const vector<Instance>& vecTrainInsts);
 	void getGoldAnswer(vector<Instance>& vecInsts);
-	int addTestAlpha(const vector<Instance>& vecInsts);
+	//int addTestAlpha(const vector<Instance>& vecInsts);
 
 
 public:

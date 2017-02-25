@@ -74,28 +74,6 @@ void Classifier::getGoldAnswer(vector<Instance>& vecInsts){
 	}
 }
 
-int Classifier::addTestAttAlpha(const vector<Instance>& vecInsts) {
-	cout << "Adding Test Att Alphabet..." << endl;
-
-
-	for (int numInstance = 0; numInstance < vecInsts.size(); numInstance++) {
-		const Instance *pInstance = &vecInsts[numInstance];
-
-		const vector<string> &atts = pInstance->m_attributes;
-		int att_num = atts.size();
-		for (int i = 0; i < att_num; i++) {
-			string curatt = normalize_to_lowerwithdigit(atts[i]);
-			m_att_stats[curatt]++;
-		}
-
-		if (m_options.maxInstance > 0 && numInstance == m_options.maxInstance)
-			break;
-	}
-
-	cout << "Att num:" << m_att_stats.size() << endl;
-	return 0;
-}
-
 void Classifier::train(const string& trainFile, const string& devFile, const string& testFile, const string& modelFile, const string& optionFile) {
 	if (optionFile != "")
 		m_options.load(optionFile);
@@ -128,8 +106,6 @@ void Classifier::train(const string& trainFile, const string& devFile, const str
 	//std::cout << "Dev example number: " << trainInsts.size() << std::endl;
 	//std::cout << "Test example number: " << trainInsts.size() << std::endl;
 
-	addTestAttAlpha(devInsts);
-	addTestAttAlpha(testInsts);
 	//for (int idx = 0; idx < otherInsts.size(); idx++) {
 		//addTestAlpha(otherInsts[idx]);
 	//}

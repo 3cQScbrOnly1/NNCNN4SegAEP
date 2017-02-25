@@ -54,13 +54,13 @@ public:
 			_word_inputs[idx].setParam(&model.words);
 			_word_inputs[idx].init(opts.wordDim, opts.dropProb, mem);
 			_hidden[idx].setParam(&model.hidden_linear);
-			_hidden[idx].init(opts.hiddenSize, opts.dropProb, mem);
+			_hidden[idx].init(opts.wordHiddenSize, opts.dropProb, mem);
 		}
 		_word_window.init(opts.wordDim, opts.wordContext, mem);
-		_avg_pooling.init(opts.hiddenSize, -1, mem);
-		_max_pooling.init(opts.hiddenSize, -1, mem);
-		_min_pooling.init(opts.hiddenSize, -1, mem);
-		_concat.init(opts.hiddenSize * 3, -1, mem);
+		_avg_pooling.init(opts.wordHiddenSize, -1, mem);
+		_max_pooling.init(opts.wordHiddenSize, -1, mem);
+		_min_pooling.init(opts.wordHiddenSize, -1, mem);
+		_concat.init(opts.wordHiddenSize * 3, -1, mem);
 		_output.setParam(&model.olayer_linear);
 		_output.init(opts.labelSize, -1, mem);
 	}

@@ -66,11 +66,11 @@ public:
 			_word_inputs[idx].setParam(&model.words);
 			_word_inputs[idx].init(opts.wordDim, opts.dropProb, mem);
 			_hidden[idx].setParam(&model.hidden_linear);
-			_hidden[idx].init(opts.hiddenSize, opts.dropProb, mem);
+			_hidden[idx].init(opts.wordHiddenSize, opts.dropProb, mem);
 			_hidden[idx].setFunctions(frelu, drelu);
 		}
 		_word_window.init(opts.wordDim, opts.wordContext, mem);
-		_word_max_pooling.init(opts.hiddenSize, -1, mem);
+		_word_max_pooling.init(opts.wordHiddenSize, -1, mem);
 
 		for (int idx = 0; idx < _att_inputs.size(); idx++) {
 			_att_inputs[idx].setParam(&model.atts);
@@ -84,7 +84,7 @@ public:
 		_att_pooling_concat.init(opts.attDim * 3, -1, mem);
 
 		_concat_seg_att.setParam(&model.seg_att_concat);
-		_concat_seg_att.init(opts.hiddenSize, opts.dropProb, mem);
+		_concat_seg_att.init(opts.wordHiddenSize, opts.dropProb, mem);
 
 		_output.setParam(&model.olayer_linear);
 		_output.init(opts.labelSize, -1, mem);

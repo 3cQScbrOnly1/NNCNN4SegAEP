@@ -85,6 +85,7 @@ void Classifier::getGoldAnswer(vector<Instance>& vecInsts){
 	}
 }
 
+/*
 int Classifier::addTestAlpha(const vector<Instance>& vecInsts) {
 	cout << "Adding Test Att Eval Alphabet..." << endl;
 
@@ -117,6 +118,7 @@ int Classifier::addTestAlpha(const vector<Instance>& vecInsts) {
 	cout << "Eval char num:" << m_eval_char_stats.size() << endl;
 	return 0;
 }
+*/
 
 void Classifier::train(const string& trainFile, const string& devFile, const string& testFile, const string& modelFile, const string& optionFile) {
 	if (optionFile != "")
@@ -150,11 +152,11 @@ void Classifier::train(const string& trainFile, const string& devFile, const str
 	//std::cout << "Dev example number: " << trainInsts.size() << std::endl;
 	//std::cout << "Test example number: " << trainInsts.size() << std::endl;
 
-	addTestAlpha(devInsts);
-	addTestAlpha(testInsts);
-	for (int idx = 0; idx < otherInsts.size(); idx++) {
-		addTestAlpha(otherInsts[idx]);
-	}
+	//addTestAlpha(devInsts);
+	//addTestAlpha(testInsts);
+	//for (int idx = 0; idx < otherInsts.size(); idx++) {
+		//addTestAlpha(otherInsts[idx]);
+	//}
 
 	vector<int> otherInstNums(otherInsts.size());
 	vector<vector<Instance> > otherInstances(otherInsts.size());

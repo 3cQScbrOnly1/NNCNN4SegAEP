@@ -35,7 +35,6 @@ public:
 
 	int createAlphabet(const vector<Instance>& vecTrainInsts);
 	void getGoldAnswer(vector<Instance>& vecInsts);
-	int addTestAttAlpha(const vector<Instance>& vecInsts);
 
 
 public:
