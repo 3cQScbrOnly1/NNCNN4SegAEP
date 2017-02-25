@@ -39,7 +39,7 @@ public:
 		opts.labelSize = labelAlpha.size();
 		hidden_linear.initial(opts.wordHiddenSize, opts.wordDim * opts.wordWindow, true, mem);
 		eval_char_hidden_linear.initial(opts.evalCharHiddenSize, opts.evalCharDim * opts.evalCharWindow, true, mem);
-		seg_att_eval_polar_concat.initial(opts.wordHiddenSize, opts.wordHiddenSize, opts.attDim * 3, opts.evalCharHiddenSize * 3 * 3, opts.polarityDim, true, mem);
+		seg_att_eval_polar_concat.initial(opts.concatHiddenSize, opts.wordHiddenSize, opts.attDim * 3, opts.evalCharHiddenSize * 3 * 3, opts.polarityDim, true, mem);
 		opts.inputSize = opts.concatHiddenSize;
 		olayer_linear.initial(opts.labelSize, opts.inputSize, false, mem);
 		return true;
