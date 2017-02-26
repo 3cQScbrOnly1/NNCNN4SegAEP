@@ -65,8 +65,8 @@ public:
 		adaEps = 1e-6;
 		adaAlpha = 0.01;
 		regParameter = 1e-8;
-		dropProb = 0.0;
-		polarDropProb = 0.0;
+		dropProb = -1;
+		polarDropProb = -1;
 
 
 		wordEmbSize = 50;
