@@ -34,6 +34,7 @@ public:
 
 	int polarityEmbSize;
 	int polarityEmbFineTune;
+	int polarityHiddenSize;
 
 	int evalCharEmbSize;
 	int evalCharContext;
@@ -76,6 +77,7 @@ public:
 
 		polarityEmbSize = 50;
 		polarityEmbFineTune = true;
+		polarityHiddenSize = 50;
 
 		evalCharEmbSize = 50;
 		evalCharContext = 2;
@@ -141,6 +143,8 @@ public:
 				polarityEmbSize = atoi(pr.second.c_str());
 			if (pr.first == "polarityEmbFineTune")
 				polarityEmbFineTune = (pr.second == "true") ? true : false;
+			if (pr.first == "polarityHiddenSize")
+				polarityHiddenSize = atoi(pr.second.c_str());
 
 			if (pr.first == "evalCharEmbSize")
 				evalCharEmbSize = atoi(pr.second.c_str());
@@ -196,6 +200,7 @@ public:
 		std::cout << "attEmbFineTune = " << attEmbFineTune << std::endl;
 		std::cout << "polarityEmbSize = " << polarityEmbSize << std::endl;
 		std::cout << "polarityEmbFineTune = " << polarityEmbFineTune << std::endl;
+		std::cout << "polarityHiddenSize = " << polarityHiddenSize << std::endl;
 
 		std::cout << "evalCharEmbSize = " << evalCharEmbSize << std::endl;
 		std::cout << "evalCharContext = " << evalCharContext << std::endl;
