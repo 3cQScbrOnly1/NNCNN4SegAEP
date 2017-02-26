@@ -151,7 +151,7 @@ public:
 		_polar_input.setParam(&model.polarity);
 		_polar_input.init(opts.polarityDim, opts.dropProb, mem);
 		_polar_hidden.setParam(&model.polar_hidden_linear);
-		_polar_hidden.init(opts.polarityHiddenSize, opts.dropProb, mem);
+		_polar_hidden.init(opts.polarityHiddenSize, opts.polarDropProb, mem);
 
 		_concat_seg_att_eval_polar.setParam(&model.seg_att_eval_polar_concat);
 		_concat_seg_att_eval_polar.init(opts.concatHiddenSize, opts.dropProb, mem);

@@ -23,6 +23,7 @@ public:
 	dtype adaAlpha;
 	dtype regParameter;
 	dtype dropProb;
+	dtype polarDropProb;
 
 	int wordEmbSize;
 	int wordcontext;
@@ -65,6 +66,8 @@ public:
 		adaAlpha = 0.01;
 		regParameter = 1e-8;
 		dropProb = 0.0;
+		polarDropProb = 0.0;
+
 
 		wordEmbSize = 50;
 		wordcontext = 2;
@@ -125,6 +128,9 @@ public:
 				regParameter = atof(pr.second.c_str());
 			if (pr.first == "dropProb")
 				dropProb = atof(pr.second.c_str());
+			if (pr.first == "polarDropProb")
+				polarDropProb = atof(pr.second.c_str());
+
 
 			if (pr.first == "wordcontext")
 				wordcontext = atoi(pr.second.c_str());
@@ -191,6 +197,7 @@ public:
 		std::cout << "adaAlpha = " << adaAlpha << std::endl;
 		std::cout << "regParameter = " << regParameter << std::endl;
 		std::cout << "dropProb = " << dropProb << std::endl;
+		std::cout << "polarDropProb = " << polarDropProb << std::endl;
 
 		std::cout << "wordEmbSize = " << wordEmbSize << std::endl;
 		std::cout << "wordcontext = " << wordcontext << std::endl;

@@ -22,6 +22,7 @@ struct HyperParams{
 	int wordWindow;
 	int evalCharWindow;
 	dtype dropProb;
+	dtype polarDropProb;
 
 
 	//auto generated
@@ -49,6 +50,7 @@ public:
 		wordContext = opt.wordcontext;
 		evalCharContext = opt.evalCharContext;
 		dropProb = opt.dropProb;
+		polarDropProb = opt.polarDropProb;
 
 		bAssigned = true;
 	}
