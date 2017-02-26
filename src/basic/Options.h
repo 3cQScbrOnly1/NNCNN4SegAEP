@@ -211,7 +211,7 @@ public:
 
 		std::cout << "verboseIter = " << verboseIter << std::endl;
 		std::cout << "maxInstance = " << maxInstance << std::endl;
-		std::cout << "outBest" << outBest << std::endl;
+		std::cout << "outBest = " << outBest << std::endl;
 		for (int idx = 0; idx < testFiles.size(); idx++) {
 			std::cout << "testFile = " << testFiles[idx] << std::endl;
 		}
