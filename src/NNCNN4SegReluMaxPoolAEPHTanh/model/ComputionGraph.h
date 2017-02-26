@@ -149,7 +149,7 @@ public:
 		_eval_pooling_concat.init(opts.evalCharHiddenSize * 3 * 3, -1, mem);
 
 		_polar_input.setParam(&model.polarity);
-		_polar_input.init(opts.polarityDim, opts.dropProb, mem);
+		_polar_input.init(opts.polarityDim, opts.polarDropProb, mem);
 		_polar_hidden.setParam(&model.polar_hidden_linear);
 		_polar_hidden.init(opts.polarityHiddenSize, opts.polarDropProb, mem);
 
