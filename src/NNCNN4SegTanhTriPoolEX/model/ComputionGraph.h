@@ -97,8 +97,13 @@ public:
 		if (words_num > max_sentence_length)
 			words_num = max_sentence_length;
 		for (int i = 0; i < words_num; i++) {
-			string& word = p_change_word(inst.m_segs[i]);
-			_word_inputs[i].forward(this, word);
+			string the_word;
+			if (bTrain)
+				the_word = p_change_word(inst.m_segs[i]);
+			else
+				the_word = inst.m_segs[i];
+
+			_word_inputs[i].forward(this, the_word);
 		}
 
 		_word_window.forward(this, getPNodes(_word_inputs, words_num));
