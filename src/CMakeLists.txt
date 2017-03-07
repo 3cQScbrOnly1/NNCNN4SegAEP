@@ -4,23 +4,5 @@ include_directories(
 )
 
 
-add_subdirectory(NNCNN4Seg)
-add_subdirectory(NNCNN4SegTanhMaxPool)
-add_subdirectory(NNCNN4SegSigmoidMaxPool)
-
-add_subdirectory(NNCNN4SegReluMaxPool)
-add_subdirectory(NNCNN4SegReluMaxPoolA)
-add_subdirectory(NNCNN4SegReluMaxPoolAE)
-add_subdirectory(NNCNN4SegReluMaxPoolAEP)
-add_subdirectory(NNCNN4SegReluMaxPoolAEPHTanh)
-add_subdirectory(NNCNN4SegReluMaxPoolAEPHRelu)
-add_subdirectory(NNCNN4SegReluMaxPoolAEPHSigmoid)
-add_subdirectory(NNCNN4SegReluMinPool)
-add_subdirectory(NNCNN4SegReluAvgPool)
-add_subdirectory(NNCNN4SegReluTriPool)
 add_subdirectory(NNCNN4SegTanhTriPool)
-add_subdirectory(NNCNN4SegSigmoidTriPool)
-
-#add_subdirectory(NNCNN4SegTanhAvgPool)
-#add_subdirectory(NNCNN4SegTanhMinPool)
-#add_subdirectory(NNCNN4SegTanhTriPool)
+add_subdirectory(NNCNN4SegTanhTriPoolEX)
